@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
-ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^+%!mnsrflamqkz!)dv&7kxt%zct-^)_c41+e59nxx$#%r0z*u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -128,15 +127,3 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':
     'rest_framework.pagination.PageNumberPagination',
 }
-
-if ENVIRONMENT == 'production':
-    DEBUG = False
-    SECRET_KEY = os.getenv('SECRET_KEY')
-    SESSION_COOKIE_SECURE = True
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_SECONDS = 31536000
-    SECURE_REDIRECT_EXEMPT = []
-    SECURE_SSL_REDIRECT = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
