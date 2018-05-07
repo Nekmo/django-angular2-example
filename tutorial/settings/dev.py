@@ -1,5 +1,6 @@
 from .defaults import *
 
+DEBUG = True
 INSTALLED_APPS.append('corsheaders')
 MIDDLEWARE.append('django.middleware.common.CommonMiddleware')
 
