@@ -2,8 +2,8 @@
 *.sqlite3
 *.pyc
 *~
-.*
 env
+node_modules
 
 # Accept these files in the repository
 !.gitignore
