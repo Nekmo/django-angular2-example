@@ -23,10 +23,17 @@ export class Snippet extends SerializerService {
     @InputConverter((api, value) => new User(api, value))
     owner: User;
 
+    created: Date;
+    title: string;
+    code: string;
+    linenos: number;
+    language: string;
+    style: string;
+    highlighted: string;
+
     // constructor (api, user) {
     //     super(api, user)
     // }
-
 }
 
 
@@ -56,5 +63,5 @@ export class SnippetApi extends ApiService {
     constructor(http: HttpClient) {
         super(http);
     }
-    
+
 }
