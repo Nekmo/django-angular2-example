@@ -3,3 +3,4 @@ Django>=2.0.1
 pygments
 coreapi
 django-cors-headers
+django-filter

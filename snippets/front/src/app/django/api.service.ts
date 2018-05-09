@@ -21,6 +21,7 @@ export class ApiService {
 
     serializer: any;
     url: string;
+    _queryParams = {};
 
     constructor(private http: HttpClient) { }
 
@@ -57,8 +58,22 @@ export class ApiService {
         return `${this.url}`;
     }
 
-    all() {
-        return this.pipeHttp(this.http.get(this.url), true);
+    order_by(...orderList: string[]) {
+        let order: string = orderList.join(',');
+        let item = this.copy();
+        item.setParams({'ordering': order});
+        return item;
     }
 
+    setParams(params) {
+        this._queryParams = Object.assign(this._queryParams, params);
+    }
+
+    all() {
+        return this.pipeHttp(this.http.get(this.url, {params: this._queryParams}), true);
+    }
+
+    copy() {
+        return new this['__proto__'].constructor(this.http);
+    }
 }

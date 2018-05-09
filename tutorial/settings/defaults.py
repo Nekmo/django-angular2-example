@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'snippets.apps.SnippetsConfig',
+
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +126,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Django REST Framework
 REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
-    'DEFAULT_PAGINATION_CLASS':
-    'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE_QUERY_PARAM': 'page_size',
+    'MAX_PAGE_SIZE':  100,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
 }

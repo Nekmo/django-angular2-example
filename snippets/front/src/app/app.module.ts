@@ -5,12 +5,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {DjangoModule} from "./django/django.module";
 import {
-    MatButtonModule, MatFormFieldModule, MatIconModule, MatListModule, MatPaginatorModule, MatTableModule,
+    MatButtonModule, MatFormFieldModule, MatIconModule, MatListModule, MatPaginatorModule, MatSortModule,
+    MatTableModule,
     MatToolbarModule
 } from "@angular/material";
 import { SnippetListComponent } from './snippet-list/snippet-list.component';
 import { AppRoutingModule } from './app-routing.module';
-import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
     declarations: [
@@ -32,6 +32,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
         MatFormFieldModule,
         MatTableModule,
         MatPaginatorModule,
+        MatSortModule,
 
     ],
     providers: [],

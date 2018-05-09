@@ -1,37 +1,37 @@
 
 
-<div class="container">
+<div class="container mt-5">
     <div class="table-wrapper mat-elevation-z8 row">
 
-        <mat-table [dataSource]="items" matSort>
+        <mat-table [dataSource]="items" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
 
             <!-- ID Column -->
             <ng-container matColumnDef="id">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
             </ng-container>
 
             <!-- Title Column -->
             <ng-container matColumnDef="title">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Título </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Título </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
             </ng-container>
 
             <!-- Language Column -->
             <ng-container matColumnDef="language">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Lenguaje </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Lenguaje </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{ row.language }} </mat-cell>
             </ng-container>
 
             <!-- Owner Column -->
             <ng-container matColumnDef="owner">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{ row.owner.username }} </mat-cell>
             </ng-container>
 
             <!-- Created Column -->
             <ng-container matColumnDef="created">
-                <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Creado </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Creado </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{ row.created }} </mat-cell>
             </ng-container>
 
