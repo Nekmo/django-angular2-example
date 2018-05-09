@@ -10,9 +10,11 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class SnippetListComponent implements OnInit {
 
-    routerPage: string = '/list';
+    readonly routerPage: string = '/list';
+    readonly defaultPageIndex: number = 10;
     items: Snippet[];
     params = {};
+    itemsLength: number = 0;
     displayedColumns = ['id', 'title', 'language', 'owner', 'created'];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -31,6 +33,7 @@ export class SnippetListComponent implements OnInit {
     setListeners() {
         this.paramsChangeListener();
         this.sortChangeListener();
+        this.pageChangeListener();
     }
 
     // Listen sort change event
@@ -41,12 +44,26 @@ export class SnippetListComponent implements OnInit {
         });
     }
 
+    // Listen sort change event
+    pageChangeListener() {
+        this.paginator.page.subscribe((ev) => {
+            let pageIndex = ev.pageIndex + 1;
+
+            if(pageIndex == 1) {
+                pageIndex = undefined;
+            }
+            this.setParams({'page_size': ev.pageSize, 'page': pageIndex});
+        });
+
+    }
+
     // Listen params change event
     paramsChangeListener() {
         this.activatedRoute.queryParams.subscribe(params => {
             this.params = params;
             // this.searchInput.value = params['search'] || '';
             this.paginator.pageIndex = parseInt(params['page'] || '1') - 1;
+            this.paginator.pageSize = this.paginator.pageSize || this.defaultPageIndex;
             // this.changeDetectorRefs.detectChanges();
             this.loadItems(); // Print the parameter to the console.
         });
@@ -54,14 +71,17 @@ export class SnippetListComponent implements OnInit {
 
     // Set router parameter
     setParam(key, value) {
+        let data = {};
+        data[key] = value;
+        this.setParams(data);
+    }
+
+    setParams(newParams) {
         let params = Object.assign({}, this.params);
-        if(!value){
-            value = undefined;
+        params = Object.assign(params, newParams);
+        if(params['page_size'] && params['page_size'] == this.defaultPageIndex) {
+            params['page_size'] = undefined;
         }
-        if(key != 'page') {
-            params['page'] = undefined;
-        }
-        params[key] = value;
         this.router.navigate([this.routerPage], {queryParams: params});
     }
 
@@ -70,12 +90,14 @@ export class SnippetListComponent implements OnInit {
         let params = Object.assign({}, this.params);
         let queryset = this.api;
         if(params['ordering']){
-            queryset = queryset.order_by(params['ordering']);
+            queryset = queryset.orderBy(params['ordering']);
             params['ordering'] = undefined;
         }
-        queryset
+        queryset = queryset.page(params['page'] || 1, params['page_size']);
+        console.log(queryset._queryParams);
         queryset.all().subscribe((items) => {
             this.items = items;
+            this.itemsLength = items.count;
         });
     }
 

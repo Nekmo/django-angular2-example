@@ -58,10 +58,16 @@ export class ApiService {
         return `${this.url}`;
     }
 
-    order_by(...orderList: string[]) {
+    orderBy(...orderList: string[]) {
         let order: string = orderList.join(',');
         let item = this.copy();
         item.setParams({'ordering': order});
+        return item;
+    }
+
+    page(page: number = 1, page_size: number = undefined) {
+        let item = this.copy();
+        item.setParams({'page': page, 'page_size': page_size});
         return item;
     }
 
@@ -74,6 +80,8 @@ export class ApiService {
     }
 
     copy() {
-        return new this['__proto__'].constructor(this.http);
+        let api = new this['__proto__'].constructor(this.http);
+        api._queryParams = Object.assign({}, this._queryParams);
+        return api;
     }
 }
