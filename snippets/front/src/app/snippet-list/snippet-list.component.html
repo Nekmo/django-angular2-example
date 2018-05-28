@@ -3,7 +3,11 @@
 <div class="container mt-5">
     <div class="table-wrapper mat-elevation-z8 row">
 
-        <mat-table [dataSource]="items" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+        <!--
+        matSortDirection="asc"
+        matSortActive="created"
+        -->
+        <mat-table [dataSource]="items" matSort matSortDisableClear>
 
             <!-- ID Column -->
             <ng-container matColumnDef="id">
@@ -32,7 +36,9 @@
             <!-- Created Column -->
             <ng-container matColumnDef="created">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Creado </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row.created }} </mat-cell>
+                <mat-cell *matCellDef="let row">
+                    <time-ago [dt]="row.created"></time-ago>
+                </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

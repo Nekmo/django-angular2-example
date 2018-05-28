@@ -33,8 +33,9 @@ class SnippetViewSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
     permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly,
-        IsOwnerOrReadOnly,
+        # TODO:
+        # permissions.IsAuthenticatedOrReadOnly,
+        # IsOwnerOrReadOnly,
     )
 
     @detail_route(renderer_classes=[renderers.StaticHTMLRenderer])
@@ -44,6 +45,10 @@ class SnippetViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    @detail_route(methods=['POST'])
+    def test(self, request, *args, **kwargs):
+        return Response('foo')
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):

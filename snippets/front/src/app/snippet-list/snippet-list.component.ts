@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Snippet, SnippetApi} from "../api.service";
-import {MatPaginator, MatSort} from "@angular/material";
+import {MatPaginator, MatSort, MatSortable} from "@angular/material";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -14,6 +14,7 @@ export class SnippetListComponent implements OnInit {
     readonly defaultPageIndex: number = 10;
     items: Snippet[];
     params = {};
+    firstLoad = true;
     itemsLength: number = 0;
     displayedColumns = ['id', 'title', 'language', 'owner', 'created'];
 
@@ -39,8 +40,7 @@ export class SnippetListComponent implements OnInit {
     // Listen sort change event
     sortChangeListener() {
         this.sort.sortChange.subscribe(() => {
-            this.paginator.pageIndex = 0;
-            this.setParam('ordering', (this.sort.direction == 'asc' ? '' : '-') + this.sort.active);
+            this.setParams({'ordering': (this.sort.direction == 'asc' ? '' : '-') + this.sort.active, 'page': 1});
         });
     }
 
@@ -60,10 +60,24 @@ export class SnippetListComponent implements OnInit {
     // Listen params change event
     paramsChangeListener() {
         this.activatedRoute.queryParams.subscribe(params => {
+            let originalParams = this.params;
             this.params = params;
+            params = Object.assign({}, params);
             // this.searchInput.value = params['search'] || '';
             this.paginator.pageIndex = parseInt(params['page'] || '1') - 1;
-            this.paginator.pageSize = this.paginator.pageSize || this.defaultPageIndex;
+            this.paginator.pageSize = parseInt(params['page_size'] || this.defaultPageIndex);
+            if(params['ordering'] && this.firstLoad) {
+                let direction: 'asc' | 'desc' = 'asc';
+                if(params['ordering'][0] == '-') {
+                    direction = 'desc';
+                    params['ordering'] = params['ordering'].slice(1);
+                }
+                // this.sort.direction = direction;
+                this.firstLoad = false;
+                // TODO:
+                // this.sort.sort({id: params['ordering'], direction: direction, start: direction});
+                this.sort.sort({id: params['ordering'], start: direction, disableClear: true});
+            }
             // this.changeDetectorRefs.detectChanges();
             this.loadItems(); // Print the parameter to the console.
         });
@@ -94,7 +108,6 @@ export class SnippetListComponent implements OnInit {
             params['ordering'] = undefined;
         }
         queryset = queryset.page(params['page'] || 1, params['page_size']);
-        console.log(queryset._queryParams);
         queryset.all().subscribe((items) => {
             this.items = items;
             this.itemsLength = items.count;

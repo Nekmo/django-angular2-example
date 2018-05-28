@@ -17,7 +17,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/snippets",
+            "preserveSymlinks": true,
+            "outputPath": "../static/snippets",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -57,7 +58,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "snippets:build"
+              "browserTarget": "snippets:build",
+              "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {

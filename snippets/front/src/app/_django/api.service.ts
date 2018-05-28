@@ -31,7 +31,7 @@ export class ApiService {
     }
 
     create(data) {
-        return this.pipeHttp(this.http.get(this.postUrl(), data));
+        return this.pipeHttp(this.http.post(this.postUrl(), data));
     }
 
     pipeHttp(observable, listMode = false) {
@@ -83,5 +83,9 @@ export class ApiService {
         let api = new this['__proto__'].constructor(this.http);
         api._queryParams = Object.assign({}, this._queryParams);
         return api;
+    }
+
+    test(pk, data) {
+        return this.http.post(`${this.url}${pk}/test/`, data);
     }
 }
