@@ -3,6 +3,7 @@ import {SnippetCreateComponent} from "../snippet-create/snippet-create.component
 import {SnippetApi} from "../api.service";
 import {FormBuilder} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
+import {MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-snippet-edit',
@@ -13,8 +14,9 @@ export class SnippetEditComponent extends SnippetCreateComponent {
 
     constructor(public formBuilder: FormBuilder,
                 public api: SnippetApi,
+                public snackBar: MatSnackBar,
                 private route: ActivatedRoute) {
-        super(formBuilder, api);
+        super(formBuilder, api, snackBar);
     }
 
     setSnippet() {

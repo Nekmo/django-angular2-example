@@ -55,7 +55,7 @@
   },
   {
     "model": "auth.user",
-    "pk": 2,
+    "pk": 4,
     "fields": {
       "password": "pbkdf2_sha256$36000$OLyqJOZgL7U6$B6ejXjtO0A6f3GWKZ+v9FYSoR6qFuajeG4MLmOK8oug=",
       "last_login": null,
@@ -73,7 +73,7 @@
   },
   {
     "model": "auth.user",
-    "pk": 2,
+    "pk": 5,
     "fields": {
       "password": "pbkdf2_sha256$36000$OLyqJOZgL7U6$B6ejXjtO0A6f3GWKZ+v9FYSoR6qFuajeG4MLmOK8oug=",
       "last_login": null,

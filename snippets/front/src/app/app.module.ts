@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {DjangoModule} from "@angular/django";
 import {
     MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
-    MatPaginatorModule, MatSelectModule, MatSortModule,
+    MatPaginatorModule, MatSelectModule, MatSnackBarModule, MatSortModule,
     MatTableModule,
     MatToolbarModule, MatTooltipModule
 } from "@angular/material";
@@ -65,6 +65,7 @@ const options: HighlightOptions = {
         MatInputModule,
         MatSelectModule,
         MatMenuModule,
+        MatSnackBarModule,
 
     ],
     providers: [],

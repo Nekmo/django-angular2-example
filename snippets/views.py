@@ -28,7 +28,7 @@ class SnippetViewSet(viewsets.ModelViewSet):
     serializer_class = SnippetSerializer
     filter_backends = (filters.OrderingFilter, filters.SearchFilter, DjangoFilterBackend)
     ordering_fields = ('id', 'created', 'title', 'linenos', 'language', 'owner')
-    search_fields = ('title',)
+    search_fields = ('title', 'language', 'owner__username')
     filter_fields = ('linenos', 'language', 'owner')
     pagination_class = StandardResultsSetPagination
 
@@ -45,10 +45,6 @@ class SnippetViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-
-    @detail_route(methods=['POST'])
-    def test(self, request, *args, **kwargs):
-        return Response('foo')
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):

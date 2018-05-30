@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Snippet, SnippetApi} from "../api.service";
+import {MatSnackBar} from "@angular/material";
 
 
 const LANGUAGES = [
@@ -21,10 +22,15 @@ export class SnippetCreateComponent implements OnInit {
     languages = LANGUAGES;
 
     constructor(public formBuilder: FormBuilder,
-                public api: SnippetApi) { }
+                public api: SnippetApi,
+                public snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.setSnippet();
+        this.setForm();
+    }
+
+    setForm() {
         this.form = this.formBuilder.group({
             'title': ['', Validators.required],
             'code': ['', Validators.required],
@@ -37,7 +43,13 @@ export class SnippetCreateComponent implements OnInit {
     }
 
     onFormSubmit() {
-        this.snippet.save().subscribe();
+        this.snippet.save().subscribe((snippet) => {
+            this.snackBar.open('Cambios guardado con éxito', 'Cerrar', {
+                duration: 20000,
+            });
+            // this.setForm();
+            this.snippet = snippet;
+        });
     }
 
 }

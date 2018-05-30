@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Snippet, SnippetApi} from "../api.service";
-import {MatPaginator, MatSort, MatSortable} from "@angular/material";
+import {MatInput, MatPaginator, MatSort, MatSortable} from "@angular/material";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -20,6 +20,7 @@ export class SnippetListComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatInput) searchInput: MatInput;
 
     constructor(
         private api: SnippetApi,
@@ -78,6 +79,7 @@ export class SnippetListComponent implements OnInit {
                 // this.sort.sort({id: params['ordering'], direction: direction, start: direction});
                 this.sort.sort({id: params['ordering'], start: direction, disableClear: true});
             }
+            this.searchInput.value = params['search'] || '';
             // this.changeDetectorRefs.detectChanges();
             this.loadItems(); // Print the parameter to the console.
         });
@@ -86,6 +88,9 @@ export class SnippetListComponent implements OnInit {
     // Set router parameter
     setParam(key, value) {
         let data = {};
+        if(value === '') {
+            value = undefined;
+        }
         data[key] = value;
         this.setParams(data);
     }
@@ -106,6 +111,10 @@ export class SnippetListComponent implements OnInit {
         if(params['ordering']){
             queryset = queryset.orderBy(params['ordering']);
             params['ordering'] = undefined;
+        }
+        if(params['search']){
+            queryset = queryset.search(params['search']);
+            params['search'] = undefined;
         }
         queryset = queryset.page(params['page'] || 1, params['page_size']);
         queryset.all().subscribe((items) => {

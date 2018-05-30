@@ -21,7 +21,7 @@ class UserSerializer(SimpleUserSerializer):
 
 class SnippetSerializer(serializers.HyperlinkedModelSerializer):
     # owner = serializers.ReadOnlyField(source='owner.username')
-    owner = SimpleUserSerializer()
+    owner = SimpleUserSerializer(read_only=True)
     highlight = serializers.HyperlinkedIdentityField(
         view_name='snippet-highlight', format='html')
 

@@ -1,6 +1,16 @@
 
 
 <div class="container mt-5">
+    <div>
+        <span fxFlex></span>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Buscar" #searchInput
+                 (keyup)="setParam('search', searchInput.value);">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+
     <div class="table-wrapper mat-elevation-z8 row">
 
         <!--
