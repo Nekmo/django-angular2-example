@@ -1,0 +1,26 @@
+<div class="container mt-5" *ngIf="snippet">
+    <mat-card class="row">
+        <snippet-header [snippet]="snippet" action="edit" [form]="form" (submit)="onFormSubmit();"></snippet-header>
+        <form fxLayout="column" fxLayoutAlign="start" (ngSubmit)="onFormSubmit()" class="mt-3"
+              fxFlex="1 0 auto" name="form" [formGroup]="form">
+            <div fxLayoutAlign="start start">
+                <mat-form-field fxFlex="75">
+                    <input matInput placeholder="Título" [(ngModel)]="snippet.title"
+                           formControlName="title">
+                </mat-form-field>
+                <mat-form-field fxFlex="25" class="pl-4">
+                    <mat-select placeholder="Lenguaje" [(ngModel)]="snippet.language"
+                                formControlName="language">
+                        <mat-option *ngFor="let language of languages" [value]="language.id">
+                            {{ language.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayoutAlign="start start" class="code" mat-card-image>
+                <textarea matInput placeholder="Código fuente" mat-autosize [(ngModel)]="snippet.code"
+                          formControlName="code"></textarea>
+            </div>
+        </form>
+    </mat-card>
+</div>

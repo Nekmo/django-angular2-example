@@ -12,9 +12,6 @@ export class AppComponent implements OnInit {
     constructor (private snippets: SnippetApi) {}
 
     ngOnInit(): void {
-        this.snippets.get(1).subscribe((item) => {
-            console.log(item.owner.username);
-        });
     }
 
 }

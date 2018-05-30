@@ -1,0 +1,21 @@
+
+
+mat-card {
+    padding-bottom: 0;
+}
+
+.code {
+    margin-bottom: 0;
+
+    textarea {
+        color: #ffffff;
+        background: #272822;
+        padding: 1.5em;
+        font-family: monospace;
+        min-height: 20vh;
+
+        &::placeholder {
+            color: #ffffff;
+        }
+    }
+}

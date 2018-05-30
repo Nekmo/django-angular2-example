@@ -1,0 +1,32 @@
+<mat-card-header>
+    <div mat-card-avatar class="avatar"></div>
+    <mat-card-title>
+        {{ snippet.title || 'Sin título' }}
+        <span *ngIf="snippet.language">en {{ snippet.language }}</span>
+    </mat-card-title>
+    <mat-card-subtitle>
+        Creado por {{ snippet.owner.username || 'Alguien especial' }}
+        <time-ago [dt]="snippet.created" prefix-text="hace"></time-ago>
+    </mat-card-subtitle>
+    <span fxFlex></span>
+    <div *ngIf="action == 'detail'">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/{{ snippet.id }}/edit">
+                <mat-icon>edit</mat-icon>
+                <span>Editar</span>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>delete</mat-icon>
+                <span>Eliminar</span>
+            </button>
+        </mat-menu>
+    </div>
+    <div *ngIf="action == 'edit'">
+        <button mat-button routerLink="/{{ snippet.id }}">Ver</button>
+        <button mat-raised-button color="primary" class="ml-4" (click)="onSave();"
+                [disabled]="!form.valid || form.pristine">Guardar</button>
+    </div>
+</mat-card-header>

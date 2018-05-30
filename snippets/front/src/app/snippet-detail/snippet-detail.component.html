@@ -1,0 +1,6 @@
+<div class="container mt-5" *ngIf="snippet">
+    <mat-card class="row">
+        <snippet-header [snippet]="snippet" action="detail"></snippet-header>
+        <pre mat-card-image><code highlight [code]="snippet.code"></code></pre>
+    </mat-card>
+</div>
