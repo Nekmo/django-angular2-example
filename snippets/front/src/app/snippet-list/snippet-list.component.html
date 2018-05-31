@@ -1,9 +1,8 @@
 
 
 <div class="container mt-5">
-    <div>
-        <span fxFlex></span>
-        <mat-form-field>
+    <div class="clearfix">
+        <mat-form-field class="float-right">
           <input type="text" matInput placeholder="Buscar" #searchInput
                  (keyup)="setParam('search', searchInput.value);">
           <mat-icon matSuffix>search</mat-icon>
